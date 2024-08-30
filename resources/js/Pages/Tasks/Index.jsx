@@ -1,11 +1,29 @@
 import React from 'react';
 import { Inertia } from '@inertiajs/inertia';
-
+import Swal from 'sweetalert2'
 const TaskList = ({ tasks }) => {
     const handleDelete = (id) => {
-        if (confirm('Are you sure?')) {
-            Inertia.delete(route('tasks.destroy', id));
-        }
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Inertia.delete(route('tasks.destroy', id), {
+                    onSuccess: () => {
+                        Swal.fire(
+                            'Deleted!',
+                            'Your task has been deleted.',
+                            'success'
+                        );
+                    }
+                });
+            }
+        });
     };
 
     return (

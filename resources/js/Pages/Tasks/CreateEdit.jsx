@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Inertia } from '@inertiajs/inertia';
-
+import Swal from 'sweetalert2'
 const CreateTask = () => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
@@ -14,7 +14,25 @@ const CreateTask = () => {
             description,
             date,
             status
+        }, {
+            onSuccess: () => {
+                console.log('Task created successfully!');
+                Swal.fire(
+                    'Success!',
+                    'Your task has been created.',
+                    'success'
+                );
+            },
+            onError: (errors) => {
+                console.error(errors);
+                Swal.fire(
+                    'Error!',
+                    'There was an issue creating your task.',
+                    'error'
+                );
+            }
         });
+        
     };
 
     return (

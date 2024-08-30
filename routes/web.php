@@ -34,8 +34,9 @@ Route::prefix('tasks')->group(function() {
     Route::get('/', [TasksController::class, 'index'])->name('tasks.index');
     Route::get('/create', [TasksController::class, 'create'])->name('tasks.create');
     Route::post('/', [TasksController::class, 'store'])->name('tasks.store');
-    Route::get('/{id}/edit', [TasksController::class, 'edit'])->name('tasks.edit');
-    Route::delete('/{id}', [TasksController::class, 'destroy'])->name('tasks.destroy');
+    Route::get('/{task}/edit', [TasksController::class, 'edit'])->name('tasks.edit');
+    Route::put('/{task}', [TasksController::class, 'update'])->name('tasks.update'); 
+    Route::delete('/{task}', [TasksController::class, 'destroy'])->name('tasks.destroy');
 });
 
 

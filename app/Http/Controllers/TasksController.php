@@ -53,18 +53,31 @@ class TasksController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Tasks $tasks)
+    public function edit(Tasks $task)
     {
-        //
+        return Inertia::render('Tasks/EditTask', ['task' => $task]);
     }
+    
+    public function update(Request $request, Tasks $task)
+    {
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'date' => 'required|date',
+            'status' => 'required|string|max:50',
+        ]);
+    
+        $task->update($validated);
+    
+        
+        return redirect()->route('tasks.index')->with('success', 'Task updated successfully');
+    }
+    
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Tasks $tasks)
-    {
-        //
-    }
+  
 
     /**
      * Remove the specified resource from storage.
